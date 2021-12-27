@@ -15,8 +15,10 @@ switch(db) {
     
     case "firebase":
         const ProductosFirebase = require('./productos/productosDaosFirebase')
+        const CarritosFirebase = require('./carritos/carritosDaosFirebase')
 
         productosDaos = new ProductosFirebase()
+        carritosDaos = new CarritosFirebase()
 
         break;
 }
