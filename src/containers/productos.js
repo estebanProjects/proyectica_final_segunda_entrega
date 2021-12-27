@@ -66,6 +66,30 @@ class Contenedor {
         return vacio
       }
     }
+
+    async update(id, array) {
+      let fileExits = await funcasync.readFileAsync(this.nameFile)
+      if(fileExits && fileExits.length >= 0) {
+        let fileData = JSON.parse(fileExits)
+        let posicion
+        fileData.find((elem, index) => {
+          if(elem.id == id) {
+            posicion = index
+            return posicion
+          }
+        })
+
+        fileData[posicion].nombre = array.nombre
+        fileData[posicion].descripcion = array.descripcion
+        fileData[posicion].codigo = array.codigo;
+        fileData[posicion].foto = array.foto;
+        fileData[posicion].precio = array.precio;
+        fileData[posicion].stock = array.stock;
+
+        console.log(fileData)
+        funcasync.writeFileAsync(fileData, this.nameFile)
+      }
+    }
   
     async deleteById(id) {
       let datos = await funcasync.readFileAsync(this.nameFile)
@@ -80,10 +104,6 @@ class Contenedor {
           }
         }
       }
-    }
-  
-    async deleteAll() {
-        funcasync.truncateAsync(this.nameFile)
     }
 
   }

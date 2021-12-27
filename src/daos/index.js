@@ -1,7 +1,7 @@
 let productosDaos
 let carritosDaos
 
-const db = "file"
+const db = "firebase"
 
 switch(db) {
     case "file":
@@ -10,6 +10,13 @@ switch(db) {
 
         productosDaos = new ProductosFs("./src/data/productos.txt")
         carritosDaos = new CarritosFs("./src/data/carritos.txt")
+
+        break;
+    
+    case "firebase":
+        const ProductosFirebase = require('./productos/productosDaosFirebase')
+
+        productosDaos = new ProductosFirebase()
 
         break;
 }

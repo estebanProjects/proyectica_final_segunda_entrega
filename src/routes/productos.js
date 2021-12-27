@@ -41,17 +41,7 @@ router.post('/', async (req, res) => {
 // Put
 router.put('/:id', async (req, res) => {
     if(req.query.admin == "admin") {
-        let datos = await index.contenedorProductos.getAll()
-        let indice = datos.findIndex(x => {
-            return x.id == req.params.id
-        })
-    
-        datos[indice].nombre = req.body.nombre
-        datos[indice].precio = req.body.precio
-        datos[indice].foto = req.body.foto
-        
-        funcasync.writeFileAsync(datos, index.contenedorProductos.nameFile)
-        
+        await product.update(req.params.id, req.body)
         res.send("Producto actualizado!")
     } else {
         res.send(messageError)
@@ -61,7 +51,7 @@ router.put('/:id', async (req, res) => {
 // Delete 
 router.delete('/:id', async (req, res) => {
     if(req.query.admin == "admin") {
-        await index.contenedorProductos.deleteById(req.params.id)
+        await product.deleteById(req.params.id)
         res.send("Producto removido correctamente!")
     } else {
         res.send(messageError)
